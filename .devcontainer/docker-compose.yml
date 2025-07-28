@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  devcontainer:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    image: portuguese-tax-gen-dev
+    volumes:
+      - ..:/workspaces/portuguese-tax-gen
+    working_dir: /workspaces/portuguese-tax-gen
+    command: sleep infinity
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/portuguese_tax_gen
+    ports:
+      - "3000:3000"
+
+  db:
+    image: postgres:latest
+    container_name: postgres-tax-gen
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: portuguese_tax_gen
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  pgdata:

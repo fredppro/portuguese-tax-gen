@@ -1,11 +1,11 @@
 {
   "name": "Portuguese Tax Generator Dev Container",
 
-  "build": {
-    "dockerfile": "Dockerfile",
-    "context": "."
-  },
-
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "devcontainer",
+  "workspaceFolder": "/workspaces/portuguese-tax-gen",
+  "forwardPorts": [3000, 5432],
+  "postCreateCommand": "npm install",
   "customizations": {
     "vscode": {
       "settings": {
@@ -28,9 +28,5 @@
         "vscode-icons-team.vscode-icons"
       ]
     }
-  },
-  // Next.js development server typically runs on port 3000.
-  "forwardPorts": [3000],
-  "postCreateCommand": "npm install",
-  "workspaceFolder": "/workspaces/portuguese-tax-gen"
+  }
 }
