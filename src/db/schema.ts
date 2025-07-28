@@ -19,6 +19,7 @@ export const income = pgTable("income", {
 });
 
 export const incomeSchema = z.object({
+  id: z.number(),
   amount: z.number().positive(),
   date: z.string().refine((val) => !isNaN(Date.parse(val)), {
     message: "Invalid date format",
