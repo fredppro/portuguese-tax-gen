@@ -5,6 +5,7 @@ import {
   numeric,
   boolean,
   date,
+  timestamp,
 } from "drizzle-orm/pg-core";
 import { z } from "zod";
 
@@ -28,4 +29,20 @@ export const incomeSchema = z.object({
   nif: z.string().length(9, "NIF must be 9 characters"),
   description: z.string().optional(),
   withVat: z.boolean(),
+});
+
+export const expense = pgTable("expense", {
+  id: serial("id").primaryKey(),
+  amount: numeric("amount", { precision: 10, scale: 2 }).notNull(),
+  date: date("date").notNull(),
+  category: text("category").notNull(),
+  description: text("description"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const expenseSchema = z.object({
+  description: z.string().min(1),
+  amount: z.string().regex(/^\d+(\.\d{1,2})?$/),
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  category: z.string().min(1),
 });
