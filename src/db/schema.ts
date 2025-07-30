@@ -41,6 +41,7 @@ export const expense = pgTable("expense", {
 });
 
 export const expenseSchema = z.object({
+  id: z.number(),
   description: z.string().min(1),
   amount: z.string().regex(/^\d+(\.\d{1,2})?$/),
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),

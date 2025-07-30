@@ -11,7 +11,7 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const validated = expenseSchema.parse(body);
+    const validated = expenseSchema.omit({ id: true }).parse(body);
 
     const inserted = await db.insert(expense).values(validated).returning();
     return NextResponse.json(inserted[0], { status: 201 });
