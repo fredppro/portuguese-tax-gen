@@ -1,38 +1,23 @@
-import { incomeSchema } from "@/db/schema";
-import { z } from "zod";
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
 
-const API_BASE_PATH =
-  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000"; // Default to localhost for server-side
-
-// Helper function to construct the full API URL
-function getApiUrl(path: string): string {
-  if (typeof window === "undefined") {
-    // Server-side: Use absolute URL
-    return `${API_BASE_PATH}${path}`;
-  }
-  // Client-side: Use relative URL
+function buildUrl(path: string) {
+  if (typeof window === "undefined") return `${API_BASE_URL}${path}`;
   return path;
 }
 
-// Fetch all income entries
-export async function fetchIncome() {
-  const response = await fetch(getApiUrl("/api/income"));
-  const data = await response.json();
-
-  // Validate the response with Zod
-  return z.array(incomeSchema).parse(data);
+export async function GET<T>(path: string): Promise<T> {
+  const res = await fetch(buildUrl(path));
+  if (!res.ok) throw new Error(`GET ${path} failed`);
+  return res.json();
 }
 
-// Add a new income entry
-export async function addIncome(newIncome: z.infer<typeof incomeSchema>) {
-  const response = await fetch(getApiUrl("/api/income"), {
+export async function POST<T>(path: string, body: unknown): Promise<T> {
+  const res = await fetch(buildUrl(path), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(newIncome),
+    body: JSON.stringify(body),
   });
-
-  const data = await response.json();
-
-  // Validate the response with Zod
-  return incomeSchema.parse(data);
+  if (!res.ok) throw new Error(`POST ${path} failed`);
+  return res.json();
 }

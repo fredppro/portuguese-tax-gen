@@ -6,10 +6,8 @@ import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 import { expenseSchema, incomeSchema } from "@/db/schema";
-import { fetchIncome } from "@/lib/api";
 import z from "zod";
 import { expenseColumns } from "@/app/expenses/_table/column-def";
-import { GET } from "../api/expense/route";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Select,
@@ -19,12 +17,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { getAllExpenses } from "@/app/expenses/_service/expenses-service";
+import { getAllIncome } from "../income/_service/income-service";
+import { incomeColumns } from "../income/_table/column-def";
 
 export default async function Page() {
-  const incomeData: z.infer<typeof incomeSchema>[] = await fetchIncome();
-  const expensesData: z.infer<typeof expenseSchema>[] = await GET().then(
-    (res) => res.json()
-  ); // Assuming similar structure for expenses
+  const incomeData: z.infer<typeof incomeSchema>[] = await getAllIncome();
+  const expensesData: z.infer<typeof expenseSchema>[] = await getAllExpenses();
 
   return (
     <SidebarProvider
@@ -76,6 +75,14 @@ export default async function Page() {
                   <DataTable
                     data={expensesData}
                     columns={expenseColumns}
+                    draggable
+                  />
+                </TabsContent>
+
+                <TabsContent value="income" className="px-4 lg:px-6">
+                  <DataTable
+                    data={incomeData}
+                    columns={incomeColumns}
                     draggable
                   />
                 </TabsContent>

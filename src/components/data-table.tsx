@@ -200,7 +200,7 @@ export function DataTable<T extends HasId>({
                 <TableHeader>
                   {table.getHeaderGroups().map((headerGroup) => (
                     <TableRow key={headerGroup.id}>
-                      {draggable && <TableHead />}{" "}
+                      {draggable && <TableHead />}
                       {/* Adds placeholder for Draggable Header to fix offset */}
                       {headerGroup.headers.map((header) => (
                         <TableHead key={header.id}>
