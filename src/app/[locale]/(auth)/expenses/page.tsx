@@ -4,19 +4,21 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { expenseSchema } from "@/db/schema";
 import { z } from "zod";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 // The current schema defines the id, but in POST requests, we don't send the id
 type ExpenseFormData = Omit<z.infer<typeof expenseSchema>, "id">;
 
 export default function ExpensesPage() {
+  const t = useTranslations("Expenses");
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<ExpenseFormData>({
-    resolver: zodResolver(expenseSchema.omit({ id: true })), // The same here, omit the id
+    resolver: zodResolver(expenseSchema.omit({ id: true })),
   });
 
   const [submitting, setSubmitting] = useState(false);
@@ -43,7 +45,7 @@ export default function ExpensesPage() {
 
   return (
     <div className="max-w-xl mx-auto p-4 space-y-4">
-      <h1 className="text-xl font-bold">Add Expense</h1>
+      <h1 className="text-xl font-bold">{t("add")}</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <label className="block">Description</label>
