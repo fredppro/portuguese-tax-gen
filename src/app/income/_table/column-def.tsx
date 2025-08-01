@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { incomeSchema } from "@/db/schema";
+import { incomeSchema } from "@/db/schema/schema";
 import { ColumnDef } from "@tanstack/react-table";
 import z from "zod";
 

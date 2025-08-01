@@ -2,8 +2,8 @@
 
 import { NextResponse } from "next/server";
 import { db } from "@/db";
-import { expense } from "@/db/schema";
-import { expenseSchema } from "@/db/schema";
+import { expense } from "@/db/schema/schema";
+import { expenseSchema } from "@/db/schema/schema";
 
 export async function GET() {
   try {

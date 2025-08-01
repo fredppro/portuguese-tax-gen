@@ -1,5 +1,5 @@
 import { db } from "./index";
-import { income } from "./schema";
+import { income } from "./schema/schema";
 
 async function seed() {
   console.log("Seeding database...");

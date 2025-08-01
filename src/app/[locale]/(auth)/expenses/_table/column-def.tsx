@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
-import { expenseSchema } from "@/db/schema";
+import { expenseSchema } from "@/db/schema/schema";
 import z from "zod";
 import {
   DropdownMenu,

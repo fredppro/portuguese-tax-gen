@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { expenseSchema } from "@/db/schema";
+import { expenseSchema } from "@/db/schema/schema";
 import { z } from "zod";
 import { useTranslations } from "next-intl";
 import { useState } from "react";

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { GET, POST } from "@/lib/api";
-import { expenseSchema } from "@/db/schema";
+import { expenseSchema } from "@/db/schema/schema";
 
 // Type inference
 export type Expense = z.infer<typeof expenseSchema>;

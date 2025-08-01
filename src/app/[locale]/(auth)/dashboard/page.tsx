@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { expenseSchema } from "@/db/schema";
+import { expenseSchema } from "@/db/schema/schema";
 import z from "zod";
 import { getAllExpenses } from "../expenses/_service/expenses-service";
 import { expenseColumns } from "../expenses/_table/column-def";

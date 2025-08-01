@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/db";
-import { income } from "@/db/schema";
-import { incomeSchema } from "@/db/schema";
+import { income } from "@/db/schema/schema";
+import { incomeSchema } from "@/db/schema/schema";
 
 export async function GET() {
   try {

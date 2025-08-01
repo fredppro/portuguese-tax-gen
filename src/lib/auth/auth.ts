@@ -13,31 +13,19 @@ import {
 import { reactInvitationEmail } from "./email/invitation";
 import { reactResetPasswordEmail } from "./email/reset-password";
 import { resend } from "./email/resend";
-import { PostgresDialect } from "kysely";
 import { nextCookies } from "better-auth/next-js";
 import { passkey } from "better-auth/plugins/passkey";
-import { Pool } from "pg";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { db } from "@/db";
 
 const from = process.env.BETTER_AUTH_EMAIL || "delivered@resend.dev";
 const to = process.env.TEST_EMAIL || "";
 
-const dialect = new PostgresDialect({
-  pool: new Pool({
-    database: "portuguese_tax_db",
-    host: "localhost",
-  }),
-});
-
-if (!dialect) {
-  throw new Error("No dialect found");
-}
-
 export const auth = betterAuth({
   appName: "Better Auth Demo",
-  database: {
-    dialect: dialect,
-    type: "postgres",
-  },
+  database: drizzleAdapter(db, {
+    provider: "pg",
+  }),
   emailVerification: {
     async sendVerificationEmail({ user, url }) {
       const res = await resend.emails.send({

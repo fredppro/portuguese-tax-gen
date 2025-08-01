@@ -1,14 +1,6 @@
 "use client";
 
 import { SignIn } from "@/components/sign-in";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { client } from "@/lib/auth/auth-client";
 import { useRouter } from "next/navigation";
