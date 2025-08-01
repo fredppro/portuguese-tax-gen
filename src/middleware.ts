@@ -9,7 +9,7 @@ const handleI18nRouting = createMiddleware(routing);
 // Sign-in and sign-up routes (locale-aware)
 const publicPaths = ["/sign-in", "/sign-up"];
 
-// Helper: checks if the request is for a public path like /sign-in or /fr/sign-in
+// Helper: checks if the request is for a public path like /sign-in or /en/sign-in
 function isPublicPath(pathname: string): boolean {
   const locale = extractLocale(pathname);
   const strippedPath = locale ? pathname.replace(`/${locale}`, "") : pathname;

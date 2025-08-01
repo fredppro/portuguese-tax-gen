@@ -1,6 +1,5 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,25 +10,46 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
 import { signIn } from "@/lib/auth/auth-client";
+import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export function SignIn({ className, ...props }: React.ComponentProps<"div">) {
+  const t = useTranslations("auth.signIn");
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+
+  async function onSubmit() {
+    setLoading(true);
+    await signIn.email({
+      email,
+      password,
+      callbackURL: "/dashboard",
+      fetchOptions: {
+        onRequest: () => setLoading(true),
+        onResponse: () => setLoading(false),
+        onSuccess: () => {
+          router.refresh();
+          router.push("/dashboard");
+        },
+      },
+    });
+    setLoading(false);
+  }
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Welcome back</CardTitle>
-          <CardDescription>
-            Login with your Apple or Google account
-          </CardDescription>
+          <CardTitle className="text-lg md:text-xl">{t("title")}</CardTitle>
+          <CardDescription>{t("description")}</CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={onSubmit} className="grid gap-4">
             <div className="grid gap-6">
               <div className="flex flex-col gap-4">
                 <Button variant="outline" className="w-full">
@@ -39,7 +59,7 @@ export function SignIn({ className, ...props }: React.ComponentProps<"div">) {
                       fill="currentColor"
                     />
                   </svg>
-                  Login with Apple
+                  {t("apple")}
                 </Button>
                 <Button variant="outline" className="w-full">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -48,17 +68,17 @@ export function SignIn({ className, ...props }: React.ComponentProps<"div">) {
                       fill="currentColor"
                     />
                   </svg>
-                  Login with Google
+                  {t("google")}
                 </Button>
               </div>
               <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                 <span className="bg-card text-muted-foreground relative z-10 px-2">
-                  Or continue with
+                  {t("or")}
                 </span>
               </div>
               <div className="grid gap-6">
                 <div className="grid gap-3">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">{t("email")}</Label>
                   <Input
                     id="email"
                     type="email"
@@ -72,38 +92,33 @@ export function SignIn({ className, ...props }: React.ComponentProps<"div">) {
                 </div>
                 <div className="grid gap-3">
                   <div className="flex items-center">
-                    <Label htmlFor="password">Password</Label>
-                    <Input
-                      id="password"
-                      type="password"
-                      placeholder="password"
-                      autoComplete="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
+                    <Label htmlFor="password">{t("password")}</Label>
                     <a
                       href="#"
                       className="ml-auto text-sm underline-offset-4 hover:underline"
                     >
-                      Forgot your password?
+                      {t("forgot")}
                     </a>
                   </div>
-                  <Input id="password" type="password" required />
+
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="password"
+                    autoComplete="password"
+                    value={password}
+                    required
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </div>
-                <Button
-                  type="submit"
-                  className="w-full"
-                  onClick={async () => {
-                    await signIn.email({ email, password });
-                  }}
-                >
-                  Login
+                <Button className="w-full" type="submit" disabled={loading}>
+                  {loading ? "..." : t("login")}
                 </Button>
               </div>
               <div className="text-center text-sm">
-                Don&apos;t have an account?{" "}
+                {t("noAccount")}
                 <a href="#" className="underline underline-offset-4">
-                  Sign up
+                  {t("signup")}
                 </a>
               </div>
             </div>
@@ -111,8 +126,8 @@ export function SignIn({ className, ...props }: React.ComponentProps<"div">) {
         </CardContent>
       </Card>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        {t("terms")} <a href="#">{t("tos")}</a> {t("and")}{" "}
+        <a href="#">{t("privacy")}</a>.
       </div>
     </div>
   );

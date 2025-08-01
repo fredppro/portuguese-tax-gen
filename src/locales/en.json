@@ -32,5 +32,42 @@
   },
   "Expenses": {
     "add": "Add Expense"
+  },
+  "auth": {
+    "signUp": {
+      "title": "Sign Up",
+      "description": "Enter your information to create an account",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "imageLabel": "Profile Image (optional)",
+      "submit": "Create an account",
+      "error": {
+        "default": "Something went wrong.",
+        "passwordMismatch": "Passwords do not match",
+        "firstNameRequired": "First name is required",
+        "lastNameRequired": "Last name is required",
+        "passwordMin": "Password must be at least 6 characters"
+      }
+    },
+    "signIn": {
+      "title": "Welcome back",
+      "description": "Login with your Apple or Google account",
+      "apple": "Login with Apple",
+      "google": "Login with Google",
+      "or": "Or continue with",
+      "email": "Email",
+      "password": "Password",
+      "forgot": "Forgot your password?",
+      "login": "Login",
+      "noAccount": "Don't have an account?",
+      "signup": "Sign up",
+      "terms": "By clicking continue, you agree to our",
+      "tos": "Terms of Service",
+      "and": "and",
+      "privacy": "Privacy Policy"
+    }
   }
 }

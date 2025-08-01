@@ -1,0 +1,73 @@
+{
+  "RootLayout": {
+    "home_link": "Accueil",
+    "sign_in_link": "Se connecter",
+    "sign_up_link": "S'inscrire"
+  },
+  "Index": {
+    "meta_title": "Présentation de Next.js Boilerplate",
+    "meta_description": "Next js Boilerplate est le code de démarrage parfait pour votre projet. Construisez votre application React avec le framework Next.js.",
+    "sponsors_title": "Partenaires"
+  },
+  "SignIn": {
+    "meta_title": "Se connecter",
+    "meta_description": "Connectez-vous à votre compte avec facilité."
+  },
+  "SignUp": {
+    "meta_title": "S'inscrire",
+    "meta_description": "Créez un compte facilement grâce à notre processus d'inscription intuitif."
+  },
+  "Dashboard": {
+    "meta_title": "Tableau de bord",
+    "hello_message": "Bonjour {email}!",
+    "alternative_message": "Vous voulez créer votre SaaS plus rapidement en utilisant la même stack ? Essayez <url></url>."
+  },
+  "UserProfile": {
+    "meta_title": "Profil de l'utilisateur"
+  },
+  "DashboardLayout": {
+    "dashboard_link": "Tableau de bord",
+    "user_profile_link": "Gérer votre compte",
+    "sign_out": "Se déconnecter"
+  },
+  "Expenses": {
+    "add": "Add Expensefr"
+  },
+  "auth": {
+    "signUp": {
+      "title": "Criar Conta",
+      "description": "Insira suas informações para criar uma conta",
+      "firstName": "Nome",
+      "lastName": "Sobrenome",
+      "email": "Email",
+      "password": "Senha",
+      "confirmPassword": "Confirmar Senha",
+      "imageLabel": "Imagem de Perfil (opcional)",
+      "submit": "Criar conta",
+      "error": {
+        "default": "Algo deu errado.",
+        "passwordMismatch": "As senhas não coincidem",
+        "firstNameRequired": "Nome é obrigatório",
+        "lastNameRequired": "Sobrenome é obrigatório",
+        "passwordMin": "A senha deve ter no mínimo 6 caracteres"
+      }
+    },
+    "signIn": {
+      "title": "Bem-vindo de volta",
+      "description": "Entre com sua conta Apple ou Google",
+      "apple": "Entrar com Apple",
+      "google": "Entrar com Google",
+      "or": "Ou continue com",
+      "email": "Email",
+      "password": "Senha",
+      "forgot": "Esqueceu sua senha?",
+      "login": "Entrar",
+      "noAccount": "Não tem uma conta?",
+      "signup": "Criar conta",
+      "terms": "Ao continuar, você concorda com nossos",
+      "tos": "Termos de Serviço",
+      "and": "e",
+      "privacy": "Política de Privacidade"
+    }
+  }
+}
