@@ -48,4 +48,5 @@ export const {
   organization,
   useListOrganizations,
   useActiveOrganization,
+  getSession,
 } = client;

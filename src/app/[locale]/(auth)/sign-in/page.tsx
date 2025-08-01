@@ -17,6 +17,7 @@ export default function Page() {
         },
         onSuccess: () => {
           toast.success("Successfully signed in");
+          console.log("Successfully signed in");
           router.push("/dashboard");
         },
       },
