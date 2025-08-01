@@ -1,4 +1,5 @@
 import { AppSidebar } from "@/components/app-sidebar";
+import { SessionProvider } from "@/components/session-provider";
 import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { auth } from "@/lib/auth/auth";
@@ -24,7 +25,7 @@ export default async function AuthLayout(props: {
   if (!session) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        {props.children}
+        <SessionProvider>{props.children}</SessionProvider>
       </div>
     );
   }
@@ -41,7 +42,7 @@ export default async function AuthLayout(props: {
       <AppSidebar user={session.user} variant="inset" />
       <SidebarInset>
         <SiteHeader />
-        {props.children}
+        <SessionProvider>{props.children}</SessionProvider>
       </SidebarInset>
     </SidebarProvider>
   );

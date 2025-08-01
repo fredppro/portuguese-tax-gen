@@ -6,8 +6,8 @@ import { routing } from "./lib/i18n-routing";
 // Locale-aware i18n middleware from next-intl
 const handleI18nRouting = createMiddleware(routing);
 
-// Sign-in route (locale-aware)
-const publicPaths = ["/sign-in", "sign-up"];
+// Sign-in and sign-up routes (locale-aware)
+const publicPaths = ["/sign-in", "/sign-up"];
 
 // Helper: checks if the request is for a public path like /sign-in or /fr/sign-in
 function isPublicPath(pathname: string): boolean {
@@ -26,19 +26,27 @@ function extractLocale(pathname: string): string | null {
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (isPublicPath(pathname)) {
-    // Allow unauthenticated access to public routes (like sign-in)
+  const session = getSessionCookie(request);
+
+  if (session) {
+    // If logged in and tries to access public route, redirect to dashboard
+    if (isPublicPath(pathname)) {
+      const locale = extractLocale(pathname);
+      const redirectTo = locale ? `/${locale}/dashboard` : "/dashboard";
+      return NextResponse.redirect(new URL(redirectTo, request.url));
+    }
+    // Authenticated and accessing protected route: allow
+    return handleI18nRouting(request);
+  } else {
+    // Not authenticated and accessing protected route: redirect to sign-in
+    if (!isPublicPath(pathname)) {
+      const locale = extractLocale(pathname);
+      const redirectTo = locale ? `/${locale}/sign-in` : "/sign-in";
+      return NextResponse.redirect(new URL(redirectTo, request.url));
+    }
+    // Not authenticated and accessing public route: allow
     return handleI18nRouting(request);
   }
-
-  const session = getSessionCookie(request);
-  if (!session) {
-    const locale = extractLocale(pathname);
-    const redirectTo = locale ? `/${locale}/sign-in` : "/sign-in";
-    return NextResponse.redirect(new URL(redirectTo, request.url));
-  }
-
-  return handleI18nRouting(request);
 }
 
 export const config = {
