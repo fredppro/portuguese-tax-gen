@@ -4,6 +4,7 @@ import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import "@/app/globals.css";
 import { routing } from "@/lib/i18n-routing";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   icons: [
@@ -49,6 +50,7 @@ export default async function RootLayout(props: {
   return (
     <html lang={locale}>
       <body>
+        <Toaster />
         <NextIntlClientProvider>{props.children}</NextIntlClientProvider>
       </body>
     </html>
