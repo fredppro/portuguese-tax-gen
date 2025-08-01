@@ -168,8 +168,15 @@ export function SignUp() {
                     toast.error(ctx.error.message);
                   },
                   onSuccess: async () => {
-                    await signIn.email({ email, password });
-                    router.push("/dashboard");
+                    await signIn.email({
+                      email,
+                      password,
+                      fetchOptions: {
+                        onSuccess: () => {
+                          router.push("/dashboard");
+                        },
+                      },
+                    });
                   },
                 },
               });

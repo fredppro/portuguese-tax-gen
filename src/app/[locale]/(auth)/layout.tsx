@@ -2,9 +2,11 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { auth } from "@/lib/auth/auth";
-import { client } from "@/lib/auth/auth-client";
 import { setRequestLocale } from "next-intl/server";
 import { headers } from "next/headers";
+
+export type BetterAuthSession = Awaited<ReturnType<typeof auth.api.getSession>>;
+export type User = NonNullable<BetterAuthSession>["user"];
 
 export default async function AuthLayout(props: {
   children: React.ReactNode;
@@ -13,9 +15,11 @@ export default async function AuthLayout(props: {
   const { locale } = await props.params;
   setRequestLocale(locale);
 
-  const session = auth.api.getSession({
+  const session: BetterAuthSession = await auth.api.getSession({
     headers: await headers(),
   });
+
+  console.log(session);
 
   if (!session) {
     return (
@@ -34,7 +38,7 @@ export default async function AuthLayout(props: {
         } as React.CSSProperties
       }
     >
-      <AppSidebar variant="inset" />
+      <AppSidebar user={session.user} variant="inset" />
       <SidebarInset>
         <SiteHeader />
         {props.children}
