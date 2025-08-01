@@ -1,8 +1,10 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { auth } from "@/lib/auth/auth";
 import { client } from "@/lib/auth/auth-client";
 import { setRequestLocale } from "next-intl/server";
+import { headers } from "next/headers";
 
 export default async function AuthLayout(props: {
   children: React.ReactNode;
@@ -11,7 +13,9 @@ export default async function AuthLayout(props: {
   const { locale } = await props.params;
   setRequestLocale(locale);
 
-  const { data: session } = await client.getSession();
+  const session = auth.api.getSession({
+    headers: await headers(),
+  });
 
   if (!session) {
     return (

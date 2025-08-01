@@ -1,6 +1,7 @@
 "use client";
 
 import { SignIn } from "@/components/sign-in";
+import { SignUp } from "@/components/sign-up";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { client } from "@/lib/auth/auth-client";
 import { useRouter } from "next/navigation";
@@ -43,7 +44,7 @@ export default function Page() {
             </TabsContent>
 
             <TabsContent value="sign-up" className="px-4 lg:px-6">
-              {/* <SignUp /> */}
+              <SignUp />
             </TabsContent>
           </Tabs>
         </div>

@@ -17,6 +17,7 @@ import { nextCookies } from "better-auth/next-js";
 import { passkey } from "better-auth/plugins/passkey";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/db";
+import { account, session, user, verification } from "@/db/schema/auth";
 
 const from = process.env.BETTER_AUTH_EMAIL || "delivered@resend.dev";
 const to = process.env.TEST_EMAIL || "";
@@ -25,6 +26,12 @@ export const auth = betterAuth({
   appName: "Better Auth Demo",
   database: drizzleAdapter(db, {
     provider: "pg",
+    schema: {
+      user,
+      session,
+      account,
+      verification,
+    },
   }),
   emailVerification: {
     async sendVerificationEmail({ user, url }) {
